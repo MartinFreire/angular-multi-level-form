@@ -1,0 +1,157 @@
+<div fxLayout="row" fxLayoutGap="32px">
+  <div fxFlex="65">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Ejemplo 1</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Formulario completo con html y logica de sub-niveles en el mismo componente.</p>
+        <br>
+
+        <form [formGroup]="form">
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex>
+              <input matInput formControlName="field1">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex="50">
+              <mat-label>Filtro Segundo Listado</mat-label>
+              <mat-select formControlName="field2">
+                <mat-option value="blue">Option Blue</mat-option>
+                <mat-option value="brown">Option Brown</mat-option>
+                <mat-option value="green">Option Green</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50">
+              <mat-label>Listado Filtrado</mat-label>
+              <mat-select formControlName="field3">
+                <ng-container *ngIf="filteredItems$ | async as filteredItems">
+                  <ng-container *ngFor="let item of filteredItems">
+                    <mat-option [value]="item._id">{{item.name.first}} - {{item.name.last}}</mat-option>
+                  </ng-container>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <button mat-raised-button color="warn" (click)="clickAddRow()">AGREGAR FILA</button>
+
+          <ng-container *ngFor="let ctrl of formArray.controls; let i = index;">
+
+            <div style="height: 10px; width: 100%; margin: 10px 0px;"><mat-divider style="width: 100%;"></mat-divider></div>
+
+            <div [formGroup]="ctrl">
+
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex="30">
+                  <input matInput formControlName="rowField1">
+                </mat-form-field>
+                <mat-form-field fxFlex="30">
+                  <input matInput formControlName="rowField2">
+                </mat-form-field>
+                <mat-form-field fxFlex="30">
+                  <input matInput formControlName="rowField3">
+                </mat-form-field>
+                <div fxFlex="150px" fxLayout="row">
+                  <button mat-mini-fab color="primary" (click)="clickAddSubRow(ctrl)"><mat-icon>plus_one</mat-icon></button>
+                  <button mat-mini-fab color="warn" (click)="formArray.removeAt(i)"><mat-icon>delete</mat-icon></button>
+                </div>
+              </div>
+
+
+              <ng-container *ngFor="let rowCtrl of getRowArray(ctrl).controls; let j = index;">
+                <div [formGroup]="rowCtrl">
+
+                  <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 50px">
+                    <mat-form-field fxFlex="25">
+                      <input matInput formControlName="subRowField1">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                      <input matInput formControlName="subRowField2">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                      <input matInput formControlName="subRowField3">
+                    </mat-form-field>
+                    <div fxFlex="150px" fxLayout="row">
+                      <button mat-mini-fab color="primary" (click)="clickAddSubRowSubRow(rowCtrl)"><mat-icon>plus_one</mat-icon></button>
+                      <button mat-mini-fab color="accent" (click)="clickAddSubRowSubRowTypeB(rowCtrl)"><mat-icon>plus_one</mat-icon></button>
+                      <button mat-mini-fab color="warn" (click)="clickDeleteSubRow(ctrl, j)"><mat-icon>delete</mat-icon></button>
+                    </div>
+                  </div>
+
+
+                  <ng-container *ngFor="let subRowCtrl of getSubRowArray(rowCtrl).controls; let k = index;">
+                    <div *ngIf="subRowCtrl.get('subRowSubRowField1')" [formGroup]="subRowCtrl">
+
+                      <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 75px">
+                        <mat-form-field fxFlex="30">
+                          <input matInput formControlName="subRowSubRowField1">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30">
+                          <input matInput formControlName="subRowSubRowField2">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30">
+                          <input matInput formControlName="subRowSubRowField3">
+                        </mat-form-field>
+                        <div fxFlex="150px" fxLayout="row">
+                          <button mat-mini-fab color="warn" (click)="clickDeleteSubRowSubRow(rowCtrl, k)"><mat-icon>delete</mat-icon></button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div *ngIf="subRowCtrl.get('subRowSubRowField1TypeB')" [formGroup]="subRowCtrl">
+
+                      <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 75px">
+                        <div fxFlex="50">
+                          <mat-button-toggle-group name="demo" formControlName="subRowSubRowField1TypeB">
+                            <mat-button-toggle value="bold">Bold</mat-button-toggle>
+                            <mat-button-toggle value="italic">Italic</mat-button-toggle>
+                            <mat-button-toggle value="underline">Underline</mat-button-toggle>
+                          </mat-button-toggle-group>
+                        </div>
+
+                        <mat-form-field fxFlex="50">
+                          <mat-select formControlName="subRowSubRowField2TypeBArray">
+                            <mat-option value="Option A">Sub Option A</mat-option>
+                            <mat-option value="Option B">Sub Option B</mat-option>
+                            <mat-option value="Option C">Sub Option C</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <div fxFlex="150px" fxLayout="row">
+                          <button mat-mini-fab color="warn" (click)="clickDeleteSubRowSubRow(rowCtrl, k)"><mat-icon>delete</mat-icon></button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </ng-container>
+
+                </div>
+              </ng-container>
+
+            </div>
+
+            <div style="margin: 10px 0px; width: 100%;"><mat-divider style="width: 100%;"></mat-divider></div>
+
+          </ng-container>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="35">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre>{{form.value | json}}</pre>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

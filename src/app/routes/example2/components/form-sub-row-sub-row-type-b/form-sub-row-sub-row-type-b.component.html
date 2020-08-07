@@ -1,0 +1,27 @@
+<form [formGroup]="form">
+
+  <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 75px">
+    <div fxFlex="50">
+      <mat-button-toggle-group name="demo" formControlName="subRowSubRowField1TypeB">
+        <mat-button-toggle value="bold">Bold</mat-button-toggle>
+        <mat-button-toggle value="italic">Italic</mat-button-toggle>
+        <mat-button-toggle value="underline">Underline</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field fxFlex="50">
+      <mat-select formControlName="subRowSubRowField2TypeBArray">
+        <mat-option value="Option A">Sub Option A</mat-option>
+        <mat-option value="Option B">Sub Option B</mat-option>
+        <mat-option value="Option C">Sub Option C</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div fxFlex="150px" fxLayout="row">
+      <button mat-mini-fab color="warn" (click)="clickDelete.emit(form)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</form>

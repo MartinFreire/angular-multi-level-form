@@ -1,0 +1,19 @@
+
+<form [formGroup]="form">
+
+  <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 75px">
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="subRowSubRowField1">
+    </mat-form-field>
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="subRowSubRowField2">
+    </mat-form-field>
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="subRowSubRowField3">
+    </mat-form-field>
+    <div fxFlex="150px" fxLayout="row">
+      <button mat-mini-fab color="warn" (click)="clickDelete.emit(form)"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+
+</form>

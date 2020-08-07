@@ -7,6 +7,7 @@
         "statements"
       ]
     },
+    "no-trailing-whitespace": false,
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,
@@ -22,18 +23,13 @@
       "app",
       "camelCase"
     ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
-    ],
+    "component-selector": false,
     "eofline": true,
     "import-blacklist": [
       true,
       "rxjs/Rx"
     ],
-    "import-spacing": true,
+    "import-spacing": false,
     "indent": {
       "options": [
         "spaces"

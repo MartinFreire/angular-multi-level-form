@@ -1,0 +1,83 @@
+<div fxLayout="row" fxLayoutGap="32px">
+  <div fxFlex="65">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Ejemplo 2</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Formulario de sub-niveles divido.</p>
+        <ul>
+          <li>Html separado en componentes individuales sin logica que emiten los clicks internos.</li>
+          <li>Logica de todo el formulario en el componente principal.</li>
+          <li>El archivo component.ts del Ejemplo 1 y de este ejemplo son identicos.</li>
+        </ul>
+        <br>
+
+        <form [formGroup]="form">
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex>
+              <input matInput formControlName="field1">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex="50">
+              <mat-label>Filtro Segundo Listado</mat-label>
+              <mat-select formControlName="field2">
+                <mat-option value="blue">Option Blue</mat-option>
+                <mat-option value="brown">Option Brown</mat-option>
+                <mat-option value="green">Option Green</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50">
+              <mat-label>Listado Filtrado</mat-label>
+              <mat-select formControlName="field3">
+                <ng-container *ngIf="filteredItems$ | async as filteredItems">
+                  <ng-container *ngFor="let item of filteredItems">
+                    <mat-option [value]="item._id">{{item.name.first}} - {{item.name.last}}</mat-option>
+                  </ng-container>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <button mat-raised-button color="warn" (click)="clickAddRow()">AGREGAR FILA</button>
+
+          <ng-container *ngFor="let ctrl of formArray.controls; let i = index;">
+
+            <div style="height: 10px; width: 100%; margin: 10px 0px;"><mat-divider style="width: 100%;"></mat-divider></div>
+
+            <app-form-row
+              [form]="ctrl"
+              [getRowArray]="getRowArray"
+              [getSubRowArray]="getSubRowArray"
+              (clickAddSubRow)="clickAddSubRow($event)"
+              (clickDelete)="formArray.removeAt(i)"
+              (clickSubRowDelete)="clickDeleteSubRow($event.ctrl, $event.idx)"
+              (clickSubRowDeleteSubRow)="clickDeleteSubRowSubRow($event.ctrl, $event.idx)"
+              (clickSubRowAddSubRow)="clickAddSubRowSubRow($event)"
+              (clickSubRowAddSubRowTypeB)="clickAddSubRowSubRowTypeB($event)">
+            </app-form-row>
+
+            <div style="margin: 10px 0px; width: 100%;"><mat-divider style="width: 100%;"></mat-divider></div>
+
+          </ng-container>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="35">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre>{{form.value | json}}</pre>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
