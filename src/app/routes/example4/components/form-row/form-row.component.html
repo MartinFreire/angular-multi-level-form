@@ -1,0 +1,40 @@
+<div [formGroup]="form">
+
+  <div fxLayout="row" fxLayoutGap="16px">
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="rowField1">
+    </mat-form-field>
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="rowField2">
+    </mat-form-field>
+    <mat-form-field fxFlex="30">
+      <input matInput formControlName="rowField3">
+    </mat-form-field>
+    <div fxFlex="150px" fxLayout="row">
+      <button mat-mini-fab color="primary" (click)="clickAddSubRow.emit(form)"><mat-icon>plus_one</mat-icon></button>
+      <button mat-mini-fab color="warn" (click)="clickDelete.emit(form)"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+
+
+  <ng-container *ngFor="let rowCtrl of getRowArray(form).controls; let j = index;">
+    <app-form-sub-row
+      [form]="rowCtrl"
+      [getSubRowArray]="getSubRowArray"
+      (clickDelete)="clickSubRowDelete.emit({ctrl: rowCtrl, idx: j});"
+      (clickDeleteSubRow)="clickSubRowDeleteSubRow.emit($event);"
+      (clickAddSubRow)="clickSubRowAddSubRow.emit($event);"
+      (clickAddSubRowTypeB)="clickSubRowAddSubRowTypeB.emit($event);"
+    ></app-form-sub-row>
+  </ng-container>
+
+
+<!--  <ng-container *ngFor="let rowCtrl of getRowArray(ctrl).controls; let j = index;">-->
+<!--    <app-form-sub-row (clickDelete)="clickDeleteSubRow(rowCtrl, j)"-->
+<!--                      (clickDeleteSubRow)="clickDeleteSubRowSubRow($event.ctrl, $event.idx)"-->
+<!--                      (clickAddSubRow)="clickAddSubRowSubRow($event)"-->
+<!--                      (clickAddSubRowTypeB)="clickAddSubRowSubRowTypeB($event)"-->
+<!--    ></app-form-sub-row>-->
+<!--  </ng-container>-->
+
+</div>

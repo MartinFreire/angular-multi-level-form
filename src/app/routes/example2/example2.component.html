@@ -3,6 +3,8 @@
     <mat-card class="mat-elevation-z2">
       <mat-card-header>
         <mat-card-title>Ejemplo 2</mat-card-title>
+        <fill-space></fill-space>
+        <code-link path="routes/example2"></code-link>
       </mat-card-header>
       <mat-card-content>
         <p>Formulario de sub-niveles divido.</p>
@@ -46,8 +48,7 @@
           <button mat-raised-button color="warn" (click)="clickAddRow()">AGREGAR FILA</button>
 
           <ng-container *ngFor="let ctrl of formArray.controls; let i = index;">
-
-            <div style="height: 10px; width: 100%; margin: 10px 0px;"><mat-divider style="width: 100%;"></mat-divider></div>
+            <divider></divider>
 
             <app-form-row
               [form]="ctrl"
@@ -60,8 +61,6 @@
               (clickSubRowAddSubRow)="clickAddSubRowSubRow($event)"
               (clickSubRowAddSubRowTypeB)="clickAddSubRowSubRowTypeB($event)">
             </app-form-row>
-
-            <div style="margin: 10px 0px; width: 100%;"><mat-divider style="width: 100%;"></mat-divider></div>
 
           </ng-container>
 

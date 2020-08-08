@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.wd-full {
+  width: 100%;
+}
+
+fill-space, .fill-space {
+  flex: 1 1 auto;
+}

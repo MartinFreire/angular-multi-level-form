@@ -1,0 +1,33 @@
+<div [formGroup]="form">
+
+  <div fxLayout="row" fxLayoutGap="16px" style="margin: 25px 0px 25px 50px">
+    <mat-form-field fxFlex="25">
+      <input matInput formControlName="subRowField1">
+    </mat-form-field>
+    <mat-form-field fxFlex="25">
+      <input matInput formControlName="subRowField2">
+    </mat-form-field>
+    <mat-form-field fxFlex="25">
+      <input matInput formControlName="subRowField3">
+    </mat-form-field>
+    <div fxFlex="150px" fxLayout="row">
+      <button mat-mini-fab color="primary" (click)="clickAddSubRow()"><mat-icon>plus_one</mat-icon></button>
+      <button mat-mini-fab color="accent" (click)="clickAddSubRowTypeB()"><mat-icon>plus_one</mat-icon></button>
+      <button mat-mini-fab color="warn" (click)="clickDelete.emit(null)"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+
+
+  <ng-container *ngFor="let subRowCtrl of formArray.controls; let k = index;">
+    <div *ngIf="subRowCtrl.get('subRowSubRowField1')" [formGroup]="subRowCtrl">
+      <app-form-sub-row-sub-row [form]="subRowCtrl" [index]="k" (clickDelete)="clickDeleteSubRow(k)">
+      </app-form-sub-row-sub-row>
+    </div>
+
+    <div *ngIf="subRowCtrl.get('subRowSubRowField1TypeB')" [formGroup]="subRowCtrl">
+      <app-form-sub-row-sub-row-type-b [form]="subRowCtrl" [index]="k" (clickDelete)="clickDeleteSubRow(k)">
+      </app-form-sub-row-sub-row-type-b>
+    </div>
+  </ng-container>
+
+</div>

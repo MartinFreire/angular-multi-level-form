@@ -1,6 +1,10 @@
 
-mat-list {
+mat-nav-list {
   mat-list-item {
     padding: 8px 0px;
+
+    .list-item {
+      padding-left: 16px;
+    }
   }
 }

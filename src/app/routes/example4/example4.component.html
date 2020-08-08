@@ -2,16 +2,14 @@
   <div fxFlex="65">
     <mat-card class="mat-elevation-z2">
       <mat-card-header>
-        <mat-card-title>Ejemplo 3</mat-card-title>
-        <fill-space></fill-space>
-        <code-link path="routes/example3"></code-link>
+        <mat-card-title>Ejemplo 2</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>Formulario de sub-niveles divido.</p>
         <ul>
           <li>Html separado en componentes individuales sin logica que emiten los clicks internos.</li>
-          <li>Logica de todo el formulario esta en su propio servicio a los cuales los sub-componentes tienen acceso.</li>
-          <li>El archivo component.ts solo se ocupa de la route de la pagina, de llamar a la API y de conectar las vistas con el servicio.</li>
+          <li>Logica de todo el formulario en el componente principal.</li>
+          <li>El archivo component.ts del Ejemplo 1 y de este ejemplo son identicos.</li>
         </ul>
         <br>
 
@@ -48,8 +46,23 @@
           <button mat-raised-button color="warn" (click)="clickAddRow()">AGREGAR FILA</button>
 
           <ng-container *ngFor="let ctrl of formArray.controls; let i = index;">
-            <divider></divider>
-            <form-row [form]="ctrl" [index]="i" (clickDelete)="clickDeleteSubRow(i)"></form-row>
+
+            <div style="height: 10px; width: 100%; margin: 10px 0px;"><mat-divider style="width: 100%;"></mat-divider></div>
+
+            <app-form-row
+              [form]="ctrl"
+              [getRowArray]="getRowArray"
+              [getSubRowArray]="getSubRowArray"
+              (clickAddSubRow)="clickAddSubRow($event)"
+              (clickDelete)="formArray.removeAt(i)"
+              (clickSubRowDelete)="clickDeleteSubRow($event.ctrl, $event.idx)"
+              (clickSubRowDeleteSubRow)="clickDeleteSubRowSubRow($event.ctrl, $event.idx)"
+              (clickSubRowAddSubRow)="clickAddSubRowSubRow($event)"
+              (clickSubRowAddSubRowTypeB)="clickAddSubRowSubRowTypeB($event)">
+            </app-form-row>
+
+            <div style="margin: 10px 0px; width: 100%;"><mat-divider style="width: 100%;"></mat-divider></div>
+
           </ng-container>
 
         </form>
@@ -57,7 +70,6 @@
       </mat-card-content>
     </mat-card>
   </div>
-
   <div fxFlex="35">
     <mat-card class="mat-elevation-z2">
       <mat-card-header>
